@@ -2,7 +2,7 @@ import os
 import time
 from uuid import uuid1
 from glob import glob
-# from deeparts.utils import cmd_util
+from deeparts.utils import cmd_util
 from loguru import logger
 
 
