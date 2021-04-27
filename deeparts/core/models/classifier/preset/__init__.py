@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-
-
+# @Date         : 2021-01-21
+# @Author       : AaronJny
+# @LastEditTime : 2021-03-12
+# @FilePath     : /deeparts/deeparts/core/models/classifier/preset/__init__.py
+# @Desc         :
 from deeparts.core.models.classifier.preset.pre_trained import (
     deepartsLeNetImageClassifier,
     deepartsDenseNet121ImageClassifier,

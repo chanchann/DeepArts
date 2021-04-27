@@ -1,16 +1,21 @@
+# -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-03-16
+# @FilePath     : /deeparts/deeparts/scripts/scheduler.py
+# @Desc         :
 import multiprocessing
 import os
 import subprocess
 import time
 
 from loguru import logger
-
 from deeparts.scripts.utils import (
     delete_project_by_id,
     read_train_projects,
     update_project_status,
 )
 from deeparts.utils import file_util
+
 
 def run_project(project):
     params = project["params"]

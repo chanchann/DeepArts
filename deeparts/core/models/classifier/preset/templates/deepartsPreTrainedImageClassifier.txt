@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-此文件由 deepArts 自动生成
+此文件由 deeparts 自动生成
 """
 import tensorflow as tf
 

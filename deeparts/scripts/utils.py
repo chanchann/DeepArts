@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-01-29
+# @FilePath     : /deeparts/deeparts/scripts/utils.py
+# @Desc         :
 import importlib
 import re
 from urllib.parse import urljoin
@@ -7,7 +12,6 @@ from loguru import logger
 from deeparts.backend.config import Config
 
 HOST = f"http://localhost:{Config.PORT}/"
-
 
 
 def read_train_projects():
@@ -24,6 +28,7 @@ def read_train_projects():
 
 def update_project_status(xid, status):
     """更新项目状态
+
     Args:
         xid (int): 项目编号
         status (int): 状态编码
@@ -37,6 +42,7 @@ def update_project_status(xid, status):
 
 def update_project_code(xid, code):
     """更新项目状态
+
     Args:
         xid (int): 项目编号
         code (str): 生成的调用代码
@@ -50,6 +56,7 @@ def update_project_code(xid, code):
 
 def get_project_by_id(xid):
     """使用项目编号获取项目信息
+
     Args:
         xid (int): 项目编号
     """
@@ -66,6 +73,7 @@ def get_project_by_id(xid):
 
 def delete_project_by_id(xid):
     """使用项目编号获取项目信息
+
     Args:
         xid (int): 项目编号
     """

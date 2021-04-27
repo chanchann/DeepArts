@@ -1,9 +1,15 @@
+# -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-01-30
+# @FilePath     : /deeparts/deeparts/backend/model.py
+# @Desc         :
 import json
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 
 class TrainProject(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-01-28
+# @FilePath     : /deeparts/deeparts/scripts/train_project.py
+# @Desc         :
 import sys
 import os
 

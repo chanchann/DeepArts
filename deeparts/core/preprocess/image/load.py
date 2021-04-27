@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-
+# @Date         : 2021-01-07
+# @Author       : AaronJny
+# @LastEditTime : 2021-04-03
+# @FilePath     : /deeparts/deeparts/core/preprocess/image/load.py
+# @Desc         :
 import imghdr
 import os
 from glob import glob

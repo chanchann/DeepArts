@@ -1,33 +1,30 @@
 # -*- coding: utf-8 -*-
+# @Date         : 2021-01-21
+# @Author       : AaronJny
+# @LastEditTime : 2021-04-05
+# @FilePath     : /deeparts/deeparts/core/models/classifier/preset/pre_trained.py
 # @Desc         : 封装tf.keras里设置的预训练模型，并对外提供支持
 import os
+from abc import ABC
 
 import tensorflow as tf
 from jinja2 import Template
 from deeparts.core.models.classifier import deepartsImageClassifier
+from loguru import logger
 
 
-class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
+class deepartsPreTrainedImageClassifier(deepartsImageClassifier, ABC):
     def __init__(self, net_name, *args, **kwargs):
         super(deepartsPreTrainedImageClassifier, self).__init__(*args, **kwargs)
         self.net_name = net_name
 
-    def build_model(self):
+    def define_model(self) -> tf.keras.Model:
         pre_trained_net: tf.keras.Model = getattr(
             tf.keras.applications, self.net_name
         )()
         pre_trained_net.trainable = False
         # 记录densenet
         self.pre_trained_net = pre_trained_net
-        # model = tf.keras.Sequential(
-        #     [
-        #         pre_trained_net,
-        #         tf.keras.layers.Flatten(),
-        #         tf.keras.layers.Dense(120, activation="relu"),
-        #         tf.keras.layers.Dropout(0.3),
-        #         tf.keras.layers.Dense(len(self.classes_num_dict), activation="softmax"),
-        #     ]
-        # )
         model = tf.keras.Sequential(
             [
                 pre_trained_net,
@@ -35,12 +32,6 @@ class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
                 tf.keras.layers.Dense(len(self.classes_num_dict), activation="softmax"),
             ]
         )
-        model.compile(
-            optimizer=tf.keras.optimizers.Adam(),
-            loss=tf.keras.losses.categorical_crossentropy,
-            metrics=["accuracy"],
-        )
-        self.model = model
         return model
 
     def train(self):
@@ -48,13 +39,19 @@ class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
         checkpoint = tf.keras.callbacks.ModelCheckpoint(
             self.model_save_path, monitor="val_accuracy", save_best_only=True
         )
-        if self.do_fine_tune:
-            pre_train_epochs = int(self.epochs / 2)
+        if self.do_fine_tune and self.freeze_epochs_ratio:
+            # 如果选择了fine tune，则至少冻结训练一个epoch
+            pre_train_epochs = max(1, int(self.freeze_epochs_ratio * self.epochs))
         else:
             pre_train_epochs = 0
         train_epochs = self.epochs - pre_train_epochs
+        if pre_train_epochs:
+            logger.info(
+                f"分两步训练，冻结训练{pre_train_epochs}个epochs，解冻训练{train_epochs}个epochs..."
+            )
         # 训练
         if pre_train_epochs:
+            logger.info("冻结 pre-trained 模型，开始预训练 ...")
             self.model.fit(
                 self.train_dataset.for_fit(),
                 initial_epoch=0,
@@ -67,6 +64,7 @@ class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
                 ],
             )
         if train_epochs:
+            logger.info("解冻 pre-trained 模型，继续训练 ...")
             self.pre_trained_net.trainable = True
             self.model.fit(
                 self.train_dataset.for_fit(),
@@ -79,6 +77,9 @@ class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
                     checkpoint,
                 ],
             )
+        logger.info("加载最优参数，输出验证集结果 ...")
+        # self.model.load_weights(self.model_save_path, by_name=True)
+        self.model.evaluate(self.dev_dataset.for_fit(), steps=self.dev_dataset.steps)
 
     def get_call_code(self):
         """返回模型定义和模型调用的代码"""
@@ -111,14 +112,18 @@ class deepartsPreTrainedImageClassifier(deepartsImageClassifier):
 
 
 class deepartsLeNetImageClassifier(deepartsPreTrainedImageClassifier):
-    def __init__(self, *args, image_size=32, **kwargs):
+    def __init__(self, *args, **kwargs):
         kwargs["net_name"] = "LeNet"
+        kwargs["with_image_net"] = False
+        kwargs["do_fine_tune"] = False
+        kwargs["image_size"] = 32
         super(deepartsLeNetImageClassifier, self).__init__(*args, **kwargs)
-        self.image_size = image_size
 
-    def build_model(self):
+    def define_model(self) -> tf.keras.Model:
+        # todo: 为模型增加dropout和正则，以适当减轻过拟合
         model = tf.keras.Sequential(
             [
+                tf.keras.Input(shape=(self.image_size, self.image_size, 3)),
                 tf.keras.layers.Conv2D(6, (5, 5), padding="same"),
                 # 添加BN层，将数据调整为均值0，方差1
                 tf.keras.layers.BatchNormalization(),
@@ -141,22 +146,16 @@ class deepartsLeNetImageClassifier(deepartsPreTrainedImageClassifier):
                 tf.keras.layers.Dense(84),
                 tf.keras.layers.BatchNormalization(),
                 tf.keras.layers.ReLU(),
-                tf.keras.layers.Dropout(0.3),
+                # tf.keras.layers.Dropout(0.3),
                 # 输出层，使用softmax激活
                 tf.keras.layers.Dense(len(self.classes_num_dict), activation="softmax"),
             ]
         )
-        use_regularizer = True
-        if use_regularizer:
-            for layer in model.layers:
-                if hasattr(layer, "kernel_regularizer"):
-                    layer.kernel_regularizer = tf.keras.regularizers.l2(0.01)
-        model.compile(
-            optimizer=tf.keras.optimizers.Adam(),
-            loss=tf.keras.losses.categorical_crossentropy,
-            metrics=["accuracy"],
-        )
-        self.model = model
+        # use_regularizer = True
+        # if use_regularizer:
+        #     for layer in model.layers:
+        #         if hasattr(layer, "kernel_regularizer"):
+        #             layer.kernel_regularizer = tf.keras.regularizers.l2(0.01)
         return model
 
     def train(self):
@@ -174,6 +173,9 @@ class deepartsLeNetImageClassifier(deepartsPreTrainedImageClassifier):
                 checkpoint,
             ],
         )
+        logger.info("加载最优参数，输出验证集结果 ...")
+        self.model.load_weights(self.model_save_path)
+        self.model.evaluate(self.dev_dataset.for_fit(), steps=self.dev_dataset.steps)
 
 
 class deepartsDenseNet121ImageClassifier(deepartsPreTrainedImageClassifier):

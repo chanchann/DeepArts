@@ -1,0 +1,12 @@
+tensorflow
+loguru
+tqdm
+jinja2
+flask
+flask-cors
+flask-sqlalchemy
+fire
+requests
+cython
+apache-beam
+kaggle

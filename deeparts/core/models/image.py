@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-
+# @Author       : AaronJny
+# @LastEditTime : 2021-03-12
+# @FilePath     : /deeparts/deeparts/core/models/image.py
+# @Desc         : 图像处理相关模型
 from deeparts.core.models.classifier import (
     deepartsLeNetImageClassifier,
     deepartsDenseNet121ImageClassifier,

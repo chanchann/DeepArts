@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-04-04
+# @FilePath     : /deeparts/bin/deeparts.py
+# @Desc         :
 import argparse
 import ast
 
@@ -13,11 +17,14 @@ parser = argparse.ArgumentParser(
 )
 usage = """
 usage: deeparts_cmd_tool.py cmd
+
 deeparts命令行工具。
 你完全可以不写任何代码，就能够完成深度学习任务的开发。
+
 deeparts command tool.
 You can complete the development of deep learning tasks
 without writing any code.
+
 arguments:
     cmd: 命令参数，用以指定 deeparts 将要执行的操作
 """

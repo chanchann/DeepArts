@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author       : AaronJny
+# @LastEditTime : 2021-01-29
+# @FilePath     : /deeparts/deeparts/run.py
+# @Desc         :
 import time
 import traceback
 from multiprocessing import Process
@@ -6,8 +11,13 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# import tensorflow as tf
+import tensorflow as tf
 from loguru import logger
+
+# 引入顺序不能变动，必须先执行此段代码，才能引入deeparts下的模块
+gpus = tf.config.experimental.list_physical_devices(device_type="GPU")
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 from deeparts.backend import app
 from deeparts.scripts import scheduler
@@ -15,7 +25,7 @@ from deeparts.backend.config import Config
 
 
 def init_deeparts_dir():
-    dir_name = Config.DEEPARTS_DIR
+    dir_name = Config.deeparts_DIR
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
 
@@ -34,10 +44,10 @@ def run():
             time.sleep(20)
 
             # 启动调度进程
-            # logger.info("正在启动任务调度进程...")
-            # scheduler_process = Process(target=scheduler.run)
-            # processes.append(scheduler_process)
-            # scheduler_process.start()
+            logger.info("正在启动任务调度进程...")
+            scheduler_process = Process(target=scheduler.run)
+            processes.append(scheduler_process)
+            scheduler_process.start()
 
             for process in processes:
                 process.join()
@@ -67,4 +77,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
