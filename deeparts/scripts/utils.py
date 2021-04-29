@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-29
-# @FilePath     : /deeparts/deeparts/scripts/utils.py
-# @Desc         :
+
 import importlib
 import re
 from urllib.parse import urljoin

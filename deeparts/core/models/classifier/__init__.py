@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Date         : 2020-12-30
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-16
-# @FilePath     : /deeparts/deeparts/core/models/classifier/__init__.py
-# @Desc         :
+
 import os
 import random
 

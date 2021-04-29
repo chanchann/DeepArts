@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Date         : 2021-01-21
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-16
-# @FilePath     : /deeparts/deeparts/core/models/classifier/preset/pre_trained.py
-# @Desc         : 封装tf.keras里设置的预训练模型，并对外提供支持
+
 import os
 
 import tensorflow as tf

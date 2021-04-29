@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Date         : 2021-01-20
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-16
-# @FilePath     : /deeparts/deeparts/core/preprocess/data/data_generator.py
-# @Desc         :
+
 import os
 
 import tensorflow as tf

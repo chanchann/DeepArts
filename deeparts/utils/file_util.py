@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-15
-# @FilePath     : /deeparts/deeparts/utils/file_util.py
-# @Desc         :
+
 import os
 import time
 from uuid import uuid1

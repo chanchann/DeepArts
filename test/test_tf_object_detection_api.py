@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-07
-# @FilePath     : /deeparts/test/test_tf_object_detection_api.py
-# @Desc         :
+
 from deeparts.core.models.complex.od.models import deepartsTFModelsObjectDetector
 
 

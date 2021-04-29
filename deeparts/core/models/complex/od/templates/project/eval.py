@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-07
-# @FilePath     : /deeparts/deeparts/core/models/complex/od/templates/project/eval.py
-# @Desc         :
+
 import time
 import warnings
 

@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-16
-# @FilePath     : /deeparts/deeparts/backend/v1.py
-# @Desc         :
+
 import json
 import os
 import re

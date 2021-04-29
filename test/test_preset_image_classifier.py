@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-12
-# @FilePath     : /deeparts/test/test_preset_image_classifier.py
-# @Desc         :
+
 from deeparts.core.models.image import (
     deepartsResNet50V2ImageClassifier as ImageClassifier,
 )

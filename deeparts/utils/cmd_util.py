@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-09
-# @FilePath     : /deeparts/deeparts/utils/cmd_util.py
-# @Desc         :
+
 import sys
 import os
 import subprocess

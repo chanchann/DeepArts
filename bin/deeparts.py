@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-17
-# @FilePath     : /deeparts/bin/deeparts.py
-# @Desc         :
+
 import argparse
 import ast
 

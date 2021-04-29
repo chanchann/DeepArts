@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-28
-# @FilePath     : /app/deeparts/backend/config.py
-# @Desc         :
+
 import os
 
 

@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-16
-# @FilePath     : /deeparts/deeparts/core/models/complex/od/models.py
-# @Desc         :
+
 import os
 from glob import glob
 

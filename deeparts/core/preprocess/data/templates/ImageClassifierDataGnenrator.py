@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Date         : 2021-01-21
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-28
-# @FilePath     : /app/deeparts/core/preprocess/data/templates/ImageClassifierDataGnenrator.py
-# @Desc         :
+
 import tensorflow as tf
 
 

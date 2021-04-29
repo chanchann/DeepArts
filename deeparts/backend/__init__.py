@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-30
-# @FilePath     : /deeparts/deeparts/backend/__init__.py
-# @Desc         :
+
 import functools
 import traceback
 

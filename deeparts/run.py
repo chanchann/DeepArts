@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-29
-# @FilePath     : /deeparts/deeparts/run.py
-# @Desc         :
+
 import time
 import traceback
 from multiprocessing import Process

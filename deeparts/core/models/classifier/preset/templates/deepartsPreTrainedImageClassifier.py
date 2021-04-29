@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Date         : 2021-01-21
-# @Author       : AaronJny
-# @LastEditTime : 2021-03-12
-# @FilePath     : /deeparts/deeparts/core/models/classifier/preset/templates/deepartsPreTrainedImageClassifier.py
-# @Desc         :
+
 import tensorflow as tf
 
 

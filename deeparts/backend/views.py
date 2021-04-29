@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-29
-# @FilePath     : /deeparts/deeparts/backend/views.py
-# @Desc         :
+
 from flask import Blueprint
 from flask import render_template
 

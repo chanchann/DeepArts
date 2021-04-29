@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author       : AaronJny
-# @LastEditTime : 2021-01-28
-# @FilePath     : /deeparts/deeparts/backend/app.py
-# @Desc         :
+
 from flask import Flask
 from flask_cors import CORS
 
