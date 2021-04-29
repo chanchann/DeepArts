@@ -1,0 +1,11 @@
+include MANIFEST.in
+include LICENSE
+include requirements.txt
+include bin/deeparts.py
+include setup.py
+include install_script.py
+include deeparts/core/models/classifier/preset/templates/*
+include deeparts/core/preprocess/data/templates/*
+include deeparts/dist/**/*
+include deeparts/core/models/complex/od/templates/**/*
+include deeparts/core/models/kaggle/templates/*

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # @Author       : AaronJny
-# @LastEditTime : 2021-04-03
+# @LastEditTime : 2021-03-17
 # @FilePath     : /deeparts/deeparts/core/models/kaggle/kaggle.py
 # @Desc         :
 import os
@@ -25,12 +25,6 @@ class KaggleUtil:
         self.kwargs = kwargs
         self.uuid = str(uuid1())
         self.tmp_dir_path = file_util.get_tmp_dir(dir_name=self.uuid)
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.clean_tmp_files()
 
     def load_notebook_metadata(self):
         file_path = os.path.join(
@@ -117,6 +111,10 @@ class KaggleUtil:
         if task_type == "classification":
             project_name = "deeparts-classification-project"
             override_params.update(["net_name", "network_name"])
+            # tfrecord数据集路径
+            tfrecord_dataset_path = "./dataset"
+            train_cmd_params.append(f"--target_dataset_path {tfrecord_dataset_path}")
+            override_params.add("target_dataset_path")
         elif task_type == "detection":
             project_name = "deeparts-object-detection-project"
             override_params.update(
@@ -125,12 +123,11 @@ class KaggleUtil:
                     "fine_tune_checkpoint_path",
                 ]
             )
+            tfrecord_dataset_path = "./dataset"
+            train_cmd_params.append(f"--tfrecord_dataset_path {tfrecord_dataset_path}")
+            override_params.add("tfrecord_dataset_path")
         else:
             raise Exception(f"不支持的任务类型! {task_type}")
-        # tfrecord数据集路径
-        tfrecord_dataset_path = "./dataset"
-        train_cmd_params.append(f"--tfrecord_dataset_path {tfrecord_dataset_path}")
-        override_params.add("tfrecord_dataset_path")
         # 原始数据集路径
         origin_dataset_path = os.path.join("../input", self.dataset_title)
         train_cmd_params.append(f"--origin_dataset_path {origin_dataset_path}")
@@ -241,17 +238,17 @@ class KaggleUtil:
                 # 运行之前，所有的状态都忽略
                 if not running:
                     if status == "running":
-                        logger.info(f"{self.kernel_id} running ...")
+                        logger.info(f"{self.dataset_id} running ...")
                         running = True
                 else:
                     # 运行之后，找到第一次非 running 状态就退出
                     if status == "running":
-                        logger.info(f"{self.kernel_id} running ...")
+                        logger.info(f"{self.dataset_id} running ...")
                     else:
                         self.kernel_exit_status = status
                         logger.info(output)
                         logger.info(
-                            f"{self.kernel_id} 终止状态：{self.kernel_exit_status} . 已退出！"
+                            f"{self.dataset_id} 终止状态：{self.kernel_exit_status} . 已退出！"
                         )
                         break
                 time.sleep(10)
